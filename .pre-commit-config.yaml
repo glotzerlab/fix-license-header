@@ -1,0 +1,26 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: 'v3.4.0'
+  hooks:
+  - id: end-of-file-fixer
+  - id: trailing-whitespace
+  - id: check-json
+  - id: check-yaml
+  - id: check-toml
+  - id: check-case-conflict
+  - id: mixed-line-ending
+- repo: https://github.com/google/yapf
+  rev: 'v0.31.0'
+  hooks:
+  - id: yapf
+- repo: https://gitlab.com/pycqa/flake8
+  rev: '3.9.1'
+  hooks:
+  - id: flake8
+    args:
+    - --show-source
+    additional_dependencies:
+    - pep8-naming==0.11.1
+    - pydocstyle==6.1.1
+    - flake8-docstrings==1.6.0
+    - flake8-rst-docstrings==0.2.3
