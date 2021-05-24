@@ -21,14 +21,14 @@ Add the following to `.pre-commit-config.yaml` to use this hook on Python
 files:
 
 ```yaml
-- repo: https://github.com/glotzerlab/pre-commit-fix-license-header
+- repo: https://github.com/glotzerlab/fix-license-header
   rev: v0.0.0
   hooks:
   - id: fix-license-header
     types_or: [python]
     args:
-    - '--license-file LICENSE'
-    - '--keep-before #!'
+    - --license-file=LICENSE
+    - --keep-before=#!
 ```
 
 ## Arguments

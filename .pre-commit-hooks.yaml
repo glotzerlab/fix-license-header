@@ -1,5 +1,5 @@
 - id: fix-license-header
-  name: fix-license-header
+  name: Fix license headers
   description: Add license headers to files
   language: python
   entry: fix-license-header
