@@ -1,4 +1,4 @@
-# Copyright (c) 2021 The Regents of the University of Michigan
+# Copyright (c) 2021-2023 The Regents of the University of Michigan
 # Part of fix-license-header, released under the BSD 3-Clause License.
 
 """Add license header to files.
@@ -47,7 +47,9 @@ def fix_file(f, header_lines, prefix, keep_before, keep_after):
     file_contents = line + f.read()
 
     # check if the header is correct
-    if file_header == header_lines and file_contents.startswith(line_ending):
+    if file_header == (header_lines
+                       and (file_contents == b''
+                            or file_contents.startswith(line_ending))):
         return 0
     else:
         # header doesn't match, rewrite file
