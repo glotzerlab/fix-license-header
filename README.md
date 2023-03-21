@@ -22,7 +22,7 @@ files:
 
 ```yaml
 - repo: https://github.com/glotzerlab/fix-license-header
-  rev: v0.0.0
+  rev: v0.1.0
   hooks:
   - id: fix-license-header
     types_or: [python]
