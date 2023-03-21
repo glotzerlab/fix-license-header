@@ -47,9 +47,8 @@ def fix_file(f, header_lines, prefix, keep_before, keep_after):
     file_contents = line + f.read()
 
     # check if the header is correct
-    if file_header == (header_lines
-                       and (file_contents == b''
-                            or file_contents.startswith(line_ending))):
+    if file_header == header_lines \
+            and (file_contents == b'' or file_contents.startswith(line_ending)):
         return 0
     else:
         # header doesn't match, rewrite file
