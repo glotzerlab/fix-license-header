@@ -1,0 +1,35 @@
+[project]
+requires-python = ">=3.8"
+name = "fix_license_header"
+version = "0.3.0"
+description = "Fix license headers."
+readme = "README.md"
+license = {text = "BSD-3-Clause"}
+authors = [
+    {name = "Joshua A. Anderson", email = "joaander@umich.edu"},
+]
+classifiers=[
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: POSIX",
+    "License :: OSI Approved :: BSD License",
+    ]
+
+[project.scripts]
+fix_license_header = "fix_license_header.fix_license_header:main"
+
+[project.urls]
+Homepage = "https://github.com/glotzerlab/fix-license-header"
+Source = "https://github.com/glotzerlab/fix-license-header"
+Issues = "https://github.com/glotzerlab/fix-license-header/issues"
+
+[tool.setuptools]
+packages = ["fix_license_header"]
+
+[build-system]
+requires = ["setuptools>=64.0.0",
+            "wheel",
+            ]
+build-backend = "setuptools.build_meta"
