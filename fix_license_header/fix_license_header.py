@@ -134,7 +134,7 @@ def main(argv=None):
             copyright_year = int(match.group(1))
             if copyright_year != datetime.datetime.now().year:
                 print(
-                    f'Warning! Copyright year {copyright_year} is not current.',
+                    f'warning: The copyright year {copyright_year} is not current.',
                     file=sys.stderr,
                 )
 
