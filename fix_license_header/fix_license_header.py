@@ -16,6 +16,8 @@ initial comments in the file with the given header.
 """
 
 import argparse
+import datetime
+import re
 import sys
 
 
@@ -117,6 +119,24 @@ def main(argv=None):
     if args.add is not None:
         for line in args.add:
             header_lines.append(line.encode('utf-8'))
+
+    for line in header_lines:
+        match = re.search(
+            r'copyright[\D]*\d+-(\d+)', line.decode('utf-8'), flags=re.IGNORECASE
+        )
+
+        if match is None:
+            match = re.search(
+                r'copyright[\D]*(\d+)', line.decode('utf-8'), flags=re.IGNORECASE
+            )
+
+        if match is not None:
+            copyright_year = int(match.group(1))
+            if copyright_year != datetime.datetime.now().year:
+                print(
+                    f'::warning:: Copyright year {copyright_year} is not current.',
+                    file=sys.stderr,
+                )
 
     keep_before = []
     if args.keep_before is not None:
