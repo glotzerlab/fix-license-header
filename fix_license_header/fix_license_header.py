@@ -50,21 +50,21 @@ def fix_file(f, header_lines, prefix, keep_before, keep_after):
     if file_header == header_lines \
             and (file_contents == b'' or file_contents.startswith(line_ending)):
         return 0
-    else:
-        # header doesn't match, rewrite file
-        f.seek(0)
-        f.truncate()
-        f.write(before)
-        for line in header_lines:
-            f.write(prefix + line + line_ending)
-        if len(after) > 0:
-            f.write(line_ending)
-            f.write(after)
-        if len(file_contents) > 0 and not file_contents.startswith(line_ending):
-            f.write(line_ending)
-        f.write(file_contents)
 
-        return 1
+    # header doesn't match, rewrite file
+    f.seek(0)
+    f.truncate()
+    f.write(before)
+    for line in header_lines:
+        f.write(prefix + line + line_ending)
+    if len(after) > 0:
+        f.write(line_ending)
+        f.write(after)
+    if len(file_contents) > 0 and not file_contents.startswith(line_ending):
+        f.write(line_ending)
+    f.write(file_contents)
+
+    return 1
 
 
 def main(argv=None):
@@ -104,11 +104,11 @@ def main(argv=None):
     # build the header
     header_lines = []
     if args.license_file is not None:
-        with open(args.license_file, 'rb') as license:
-            for i in range(args.start):
-                license.readline()
-            for i in range(args.num):
-                header_lines.append(license.readline().strip())
+        with open(args.license_file, 'rb') as license_file:
+            for _ in range(args.start):
+                license_file.readline()
+            for _ in range(args.num):
+                header_lines.append(license_file.readline().strip())
 
     if args.add is not None:
         for line in args.add:
@@ -139,4 +139,4 @@ def main(argv=None):
 
 
 if __name__ == '__main__':
-    exit(main(sys.argv[1:]))
+    sys.exit(main(sys.argv[1:]))
