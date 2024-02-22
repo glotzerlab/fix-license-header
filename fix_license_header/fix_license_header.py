@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2024 The Regents of the University of Michigan
+# Copyright (c) 2021-2024, The Regents of the University of Michigan
 # Part of fix-license-header, released under the BSD 3-Clause License.
 
 """Add license header to files.
@@ -33,22 +33,22 @@ def fix_file(f, header_lines, prefix, keep_before, keep_after):
     before = b''
     after = b''
     file_header = []
-    while (line.startswith(prefix)
-           or any([line.startswith(s) for s in keep_before])):
+    while line.startswith(prefix) or any([line.startswith(s) for s in keep_before]):
         if any([line.startswith(s) for s in keep_before]):
             before += line
         elif any([line.startswith(s) for s in keep_after]):
             after += line
         else:
-            file_header.append(line[len(prefix):].strip())
+            file_header.append(line[len(prefix) :].strip())
         line = f.readline()
 
     # read the contents of the file
     file_contents = line + f.read()
 
     # check if the header is correct
-    if file_header == header_lines \
-            and (file_contents == b'' or file_contents.startswith(line_ending)):
+    if file_header == header_lines and (
+        file_contents == b'' or file_contents.startswith(line_ending)
+    ):
         return 0
 
     # header doesn't match, rewrite file
@@ -69,35 +69,39 @@ def fix_file(f, header_lines, prefix, keep_before, keep_after):
 
 def main(argv=None):
     """The main entrypoint."""
-    parser = argparse.ArgumentParser('Fixes the license headers in files.',)
+    parser = argparse.ArgumentParser(
+        'Fixes the license headers in files.',
+    )
     parser.add_argument('--license-file', help='License file to read', type=str)
-    parser.add_argument('--start',
-                        help='Number of lines to ignore (default: 0)',
-                        type=int,
-                        default=0)
-    parser.add_argument('--num',
-                        help='Number of lines to read (default: 1)',
-                        type=int,
-                        default=1)
-    parser.add_argument('--add',
-                        action='append',
-                        help='Line to add after the license file '
-                        '[can specify multiple times]',
-                        type=str)
-    parser.add_argument('--keep-before',
-                        action='append',
-                        help='Keep lines starting with this before the header '
-                        '[can specify multiple times]',
-                        type=str)
-    parser.add_argument('--keep-after',
-                        action='append',
-                        help='Keep lines that start with this after the header '
-                        '[can specify multiple times]',
-                        type=str)
-    parser.add_argument('--comment-prefix',
-                        help='Comment prefix',
-                        type=str,
-                        default='#')
+    parser.add_argument(
+        '--start', help='Number of lines to ignore (default: 0)', type=int, default=0
+    )
+    parser.add_argument(
+        '--num', help='Number of lines to read (default: 1)', type=int, default=1
+    )
+    parser.add_argument(
+        '--add',
+        action='append',
+        help='Line to add after the license file [can specify multiple times]',
+        type=str,
+    )
+    parser.add_argument(
+        '--keep-before',
+        action='append',
+        help='Keep lines starting with this before the header '
+        '[can specify multiple times]',
+        type=str,
+    )
+    parser.add_argument(
+        '--keep-after',
+        action='append',
+        help='Keep lines that start with this after the header '
+        '[can specify multiple times]',
+        type=str,
+    )
+    parser.add_argument(
+        '--comment-prefix', help='Comment prefix', type=str, default='#'
+    )
     parser.add_argument('filenames', nargs='*', help='Filenames to fix')
     args = parser.parse_args(argv)
 
@@ -126,11 +130,13 @@ def main(argv=None):
 
     for filename in args.filenames:
         with open(filename, 'r+b') as f:
-            status = fix_file(f=f,
-                              header_lines=header_lines,
-                              prefix=args.comment_prefix.encode('utf-8') + b' ',
-                              keep_before=keep_before,
-                              keep_after=keep_after)
+            status = fix_file(
+                f=f,
+                header_lines=header_lines,
+                prefix=args.comment_prefix.encode('utf-8') + b' ',
+                keep_before=keep_before,
+                keep_after=keep_after,
+            )
             return_value |= status
             if status:
                 print(f'Updated license header in {filename}')
