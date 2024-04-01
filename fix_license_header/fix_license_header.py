@@ -192,14 +192,13 @@ def main(argv=None):
                     '--comment-prefix'
                 )
                 raise ValueError(error_str)
-            prefix = prefix.encode('utf-8') + b' '
         else:
-            prefix = args.comment_prefix.encode('utf-8') + b' '
+            prefix = args.comment_prefix
         with open(filename, 'r+b') as f:
             status = fix_file(
                 f=f,
                 header_lines=header_lines,
-                prefix=prefix,
+                prefix=prefix.encode('utf-8') + b' ',
                 keep_before=keep_before,
                 keep_after=keep_after,
             )
