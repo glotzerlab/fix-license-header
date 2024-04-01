@@ -69,6 +69,39 @@ def fix_file(f, header_lines, prefix, keep_before, keep_after):
     return 1
 
 
+# These mappings are used for when no filetype is provided
+file_type_comment_map = {
+    'asm': ';',  # Assembly
+    'c': '//',  # C
+    'cpp': '//',  # C++
+    'c++': '//',  # C++
+    'cs': '//',  # C#
+    'dockerfile': '#',  # Docker files
+    'gleam': '//',  # Gleam
+    'go': '//',  # Golang
+    'h': '//',  # C header
+    'hpp': '//',  # C++ header
+    'h++': '//',  # C++ header
+    'java': '//',  # Java
+    'js': '//',  # Javascript
+    'json': '//',  # JSON
+    'lua': '--',  # LUA
+    'php': '//',  # PHP
+    'pl': '#',  # Perl
+    'py': '#',  # Python
+    'pyc': '#',  # Python
+    'pyx': '#',  # Python
+    'rb': '#',  # Ruby
+    'rs': '//',  # Rust
+    'rst': '..',  # ReStructured Text
+    'sh': '#',  # Shell
+    'sql': '--',  # SQL
+    'swift': '//',  # Swift
+    'yaml': '#',  # YAML
+    'yml': '#',  # YAML
+}
+
+
 def main(argv=None):
     """The main entrypoint."""
     parser = argparse.ArgumentParser(
@@ -102,7 +135,7 @@ def main(argv=None):
         type=str,
     )
     parser.add_argument(
-        '--comment-prefix', help='Comment prefix', type=str, default='#'
+        '--comment-prefix', help='Comment prefix', type=str, default=None
     )
     parser.add_argument('filenames', nargs='*', help='Filenames to fix')
     args = parser.parse_args(argv)
@@ -147,13 +180,26 @@ def main(argv=None):
         keep_after = [s.encode('utf-8') for s in args.keep_after]
 
     return_value = 0
-
     for filename in args.filenames:
+        if args.comment_prefix is None:
+            # Parse to search for stored comment prefix for that file type.
+            extension = filename.split('.')[-1]
+            prefix = file_type_comment_map.get('extension', None)
+            if prefix is None:
+                error_str = (
+                    f"Comment prefix for '.{extension}' file could not be found "
+                    'automatically.\nPlease provide the correct value with'
+                    '--comment-prefix'
+                )
+                raise ValueError(error_str)
+            prefix = prefix.encode('utf-8') + b' '
+        else:
+            prefix = args.comment_prefix.encode('utf-8') + b' '
         with open(filename, 'r+b') as f:
             status = fix_file(
                 f=f,
                 header_lines=header_lines,
-                prefix=args.comment_prefix.encode('utf-8') + b' ',
+                prefix=prefix,
                 keep_before=keep_before,
                 keep_after=keep_after,
             )
