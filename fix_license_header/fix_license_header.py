@@ -184,14 +184,14 @@ def main(argv=None):
         if args.comment_prefix is None:
             # Parse to search for stored comment prefix for that file type.
             extension = filename.split('.')[-1]
-            prefix = file_type_comment_map.get('extension', None)
+            prefix = file_type_comment_map.get(extension, None)
             if prefix is None:
                 error_str = (
-                    f"Comment prefix for '.{extension}' file could not be found "
-                    'automatically.\nPlease provide the correct value with '
-                    '--comment-prefix'
+                    f'Comment format not detected for file with extension {extension}.'
+                    ' Please provide the correct value with --comment-prefix',
                 )
                 raise ValueError(error_str)
+                continue
         else:
             prefix = args.comment_prefix
         with open(filename, 'r+b') as f:
