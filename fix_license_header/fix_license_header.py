@@ -188,7 +188,7 @@ def main(argv=None):
             if prefix is None:
                 error_str = (
                     f"Comment prefix for '.{extension}' file could not be found "
-                    'automatically.\nPlease provide the correct value with'
+                    'automatically.\nPlease provide the correct value with '
                     '--comment-prefix'
                 )
                 raise ValueError(error_str)
