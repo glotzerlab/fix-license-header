@@ -73,6 +73,7 @@ def fix_file(f, header_lines, prefix, keep_before, keep_after):
 file_type_comment_map = {
     'asm': ';',  # Assembly
     'c': '//',  # C
+    'cc': '//',  # C++
     'cpp': '//',  # C++
     'c++': '//',  # C++
     'cs': '//',  # C#
@@ -84,6 +85,7 @@ file_type_comment_map = {
     'h': '//',  # C header
     'hpp': '//',  # C++ header
     'h++': '//',  # C++ header
+    'inc': '//',  # C++ template include file
     'java': '//',  # Java
     'js': '//',  # Javascript
     'json': '//',  # JSON
