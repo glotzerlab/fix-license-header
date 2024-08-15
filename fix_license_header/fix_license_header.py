@@ -76,6 +76,8 @@ file_type_comment_map = {
     'cpp': '//',  # C++
     'c++': '//',  # C++
     'cs': '//',  # C#
+    'cu': '//',  # CUDA
+    'cuh': '//',  # CUDA header
     'dockerfile': '#',  # Docker files
     'gleam': '//',  # Gleam
     'go': '//',  # Golang
