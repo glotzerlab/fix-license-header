@@ -94,6 +94,7 @@ file_type_comment_map = {
     'pl': '#',  # Perl
     'py': '#',  # Python
     'pyc': '#',  # Python
+    'pxd': '#',  # Python
     'pyx': '#',  # Python
     'rb': '#',  # Ruby
     'rs': '//',  # Rust
