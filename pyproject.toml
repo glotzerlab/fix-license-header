@@ -1,7 +1,7 @@
 [project]
 requires-python = ">=3.8"
 name = "fix_license_header"
-version = "0.3.1"
+version = "0.4.1"
 description = "Fix license headers."
 readme = "README.md"
 license = {text = "BSD-3-Clause"}
